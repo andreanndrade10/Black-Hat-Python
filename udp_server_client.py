@@ -4,9 +4,12 @@ from datetime import datetime
 MAX_BYTES = 65535
 
 def server(port):
+    #Setting IP type (IPv4) and protocol (UDP)
     sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    #Setting IP address and port
     sock.bind(('127.0.0.1', port))
     print('Listening at {}'.format(sock.getsockname()))
+    #Waiting for connection coming from UDP cient
     while True:
         data, address = sock.recvfrom(MAX_BYTES)
         text = data.decode('ascii')
@@ -16,9 +19,11 @@ def server(port):
         sock.sendto(data,address)
 
 def client(port):
+    #Setting IP type (IPv4) and protocol (UDP)
     sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     text = 'The time is {}'.format(datetime.now())
     data = text.encode('ascii')
+    #Sending data to Server
     sock.sendto(data, ('127.0.0.1', port))
     print('The OS assigned me the address {}'.format(sock.getsockname()))
     data, address = sock.recvfrom(MAX_BYTES)
@@ -34,4 +39,3 @@ if __name__ == '__main__':
     args = parser.parse_args()
     function = choices[args.role]
     function(args.p)
-    
