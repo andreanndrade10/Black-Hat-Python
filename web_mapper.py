@@ -1,7 +1,7 @@
-import Queue
+import queuelib
 import threading
 import os
-#import urllib2
+import urllib3
 
 target = "http://www.tryhackme.com"
 filters = [".jpg",".gif","png",".css"]
